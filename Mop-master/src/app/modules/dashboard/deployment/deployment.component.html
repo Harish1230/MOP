@@ -1,0 +1,118 @@
+
+<!-- Button trigger modal -->
+
+  <div class="pb-2 float-right">
+    <i class="fas fa-plus-circle" data-toggle="modal" data-target="#addDeploymentModalCenter" >
+    </i>
+    </div>
+  <!-- Modal -->
+  <div  class="modal fade" id="addDeploymentModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Deployment Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class='card'>
+                <div class="card-body">       
+                    <form [formGroup]='deploymentForm'>
+                        <div >
+                            <div>
+                                <label class="popupalign">
+                                    <div class="popup"> Task : </div>
+                                    <div class="popup">
+                                        <input  type="text" formControlName="task" />
+                                    </div>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="popupalign">
+                                    <div class="popup"> Prime : </div>
+                                    <div class="popup">
+                                        <input class="float-right" type="text" formControlName="prime" />
+                                    </div>
+
+                                </label>
+                            </div>
+                            <div>
+                                <label class="popupalign">
+                                    <div class="popup"> Duration : </div>
+                                    <div class="popup">
+                                        <input type="text" class="float-right" formControlName="duration" />
+                                    </div>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="popupalign">
+                                    <div class="popup"> Start Date : </div>
+                                    <div class="popup">
+                                        <input type="date" class="float-right" formControlName="startDate" />
+                                    </div>
+                                    
+                                </label>
+                            </div>
+                            <div>
+                                <label class="popupalign">
+                                    <div class="popup"> End Date : </div>
+                                    <div class="popup">
+                                        <input type="date" class="float-right" formControlName="endDate" />
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>                        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table  class="table">
+    <thead class="thead-light">
+        <th scope="col" >Sno</th>
+        <th scope="col">Task</th>
+        <th scope="col">Prime</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col" >Actions</th>
+    </thead>
+    <tbody [sortablejs]='dashboardService.deployment'>
+        <tr *ngFor="let data of dashboardService.deployment; index as i">
+            <td class="draganddrop">
+                {{i + 1}}
+            </td>
+            <td class="draganddrop">
+                {{data.task}}
+            </td>
+            <td class="draganddrop">
+                {{data.prime}}
+            </td>
+            <td class="draganddrop">
+                {{data.duration}}
+            </td>
+            <td class="draganddrop">
+                {{data.startDate}}
+            </td>
+            <td class="draganddrop">
+                {{data.endDate}}
+            </td>
+            <td>
+                <i class="fas fa-trash-alt plusbutton" (click)="delete(data)"></i>
+                /
+                <i class="fas fa-pencil-alt plusbutton" data-toggle="modal" data-target="#addDeploymentModalCenter" (click)="edit(data)"></i>
+            </td>
+        </tr>
+        <tr  *ngIf="dashboardService.deployment.length===0">
+            <td colspan="7" class="text-center">No Data Available</td> 
+         </tr>
+    </tbody>
+  </table >

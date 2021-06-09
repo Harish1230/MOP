@@ -1,0 +1,117 @@
+
+
+<!-- Button trigger modal -->
+
+<div class="pb-2 float-right plusbutton">
+<i class="fas fa-plus-circle" data-toggle="modal" data-target="#addModalCenter" >
+</i>
+</div>
+  <!-- Modal -->
+  <div  class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Affected Database Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class='card'>
+                <div class="card-body">       
+                    <form [formGroup]='affectedDatabaseForm'>
+                    <div >
+                        <div>
+                            <label class="popupalign">
+                                <div class="popup"> Application(s) : </div>
+                                <div class="popup">
+                                    <input type="text" formControlName="application" />
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="popupalign">
+                                <div class="popup"> Database Host: Instance Name : </div>
+                                <div class="popup">
+                                    <input type="text" formControlName="database_Host_Instance_Name" />
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="popupalign">
+                                <div class="popup"> Database Type : </div>
+                                <div class="popup">
+                                    <input type="text" formControlName="databaseType" />
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="popupalign">
+                                <div class="popup"> Approved by DBA/DBC : </div>
+                                <div class="popup">
+                                    <input type="text" formControlName="ApprovedBy" />
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="popupalign">
+                                <div class="popup"> DB Managed By (i.e. Vendor) : </div>
+                                <div class="popup">
+                                    <input type="text" formControlName="dBManagedBy" />
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table  class="table">
+    <thead class="thead-light">
+        <th scope="col" >Sno</th>
+        <th scope="col" >Application(s)</th>
+        <th scope="col" >Database Host: Instance Name</th>
+        <th scope="col" >Database Type</th>
+        <th scope="col" >Approved by DBA/DBC</th>
+        <th scope="col" >DB Managed By (i.e. Vendor)</th>
+        <th scope="col" >Actions</th>
+    </thead>
+    <tbody [sortablejs]='dashboardService.affectedDatabase'>
+        <tr *ngFor="let data of dashboardService.affectedDatabase; index as i">
+            <td class="draganddrop">
+                {{i + 1}}
+            </td>
+            <td class="draganddrop">
+                {{data.application}}
+            </td>
+            <td class="draganddrop">
+                {{data.database_Host_Instance_Name}}
+            </td>
+            <td class="draganddrop">
+                {{data.databaseType}}
+            </td>
+            <td class="draganddrop">
+                {{data.ApprovedBy}}
+            </td>
+            <td class="draganddrop">
+                {{data.dBManagedBy}}
+            </td>
+            <td >
+                <i class="fas fa-trash-alt plusbutton" (click)="delete(data)"></i>
+                /
+                <i class="fas fa-pencil-alt plusbutton" data-toggle="modal" data-target="#addModalCenter" (click)="edit(data)"></i>
+            </td>
+        </tr>
+        <tr  *ngIf="dashboardService.affectedDatabase.length===0">
+            <td colspan="7" class="text-center">No Data Available</td> 
+         </tr>
+    </tbody>
+  </table >

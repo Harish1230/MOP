@@ -1,0 +1,98 @@
+<div class="nav">
+<h3 class="heading"> MOP</h3>
+</div>
+
+<div id="accordion" class="container">
+  <form [formGroup]='dashboardForm'>
+        <div>
+            <label class="popupalign">
+                <div > Title of the MOP : </div>
+                <div >
+                    <input  type="text" formControlName="tmop" />
+                </div>
+            </label>
+        </div>
+        <div>
+            <label class="popupalign">
+                <div > Creator of the MOP : </div>
+                <div >
+                    <input class="float-right" type="text" formControlName="cmop" />
+                </div>
+
+            </label>
+        </div>
+        <div>
+            <label class="popupalign">
+                <div > Description of the MOP : </div>
+                <div >
+                    <input type="text" class="float-right" formControlName="dmop" />
+                </div>
+            </label>
+        </div>
+</form>
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Affected-Data
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+            <app-affected-database></app-affected-database>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Deployment
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+            <app-deployment></app-deployment>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Pre-Deployment
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+            <app-predeployment></app-predeployment>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Post-Deployment
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+          <div class="card-body">
+            <app-postdeployment></app-postdeployment>
+          </div>
+        </div>
+      </div>
+      <div style="
+      width: 100%; 
+      align-items: center;
+      display: flex;
+      justify-content: space-around; padding-top: 5px;" *ngIf='dashboardService.deployment.length>0 || dashboardService.preDeployment.length>0 || dashboardService.postDeployment.length>0 || dashboardService.affectedDatabase.length>0'>
+        <button type="button"  class="btn btn-primary" (click)='download()'>Generate Docx</button>
+      </div>
+      
+  </div>
